@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.chatRouter = void 0;
+const express_1 = require("express");
+const jwt_token_verify_1 = require("../middleware/jwt_token_verify");
+const chat_controller_1 = require("../controller/chat.controller");
+exports.chatRouter = (0, express_1.Router)();
+const chatController = new chat_controller_1.ChatController();
+exports.chatRouter.use(jwt_token_verify_1.verifyToken);
+exports.chatRouter.post('/', chatController.accessChat);
+exports.chatRouter.get('/', chatController.fetchChats);
+exports.chatRouter.post('/group', chatController.createGroupChat);
+exports.chatRouter.delete('/', chatController.deleteChat);
+exports.chatRouter.post('/rename', chatController.renameGroup);
+exports.chatRouter.post('/addnewuser', chatController.addNewUserInGroup);
+exports.chatRouter.delete("/removeuser", chatController.removeUserInGroup);

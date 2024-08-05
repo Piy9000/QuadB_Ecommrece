@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.notificationRouter = void 0;
+const express_1 = require("express");
+const jwt_token_verify_1 = require("../middleware/jwt_token_verify");
+const notification_controller_1 = require("../controller/notification.controller");
+exports.notificationRouter = (0, express_1.Router)();
+const NotificationController = new notification_controller_1.NotificationCarry();
+exports.notificationRouter.use(jwt_token_verify_1.verifyToken);
+exports.notificationRouter.get('/:chatId', NotificationController.sendNotification);
